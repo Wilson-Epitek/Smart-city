@@ -1,16 +1,30 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import MapView from 'react-native-maps';
 
-const ProfileScreen = ({ navigation }) => {
-   return (
-           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-              <Text>Map Screen</Text>
-              <Button
-                      title="Go to Home"
-                      onPress={() => navigation.navigate('Home')}
-              />
-           </View>
-   );
+const App = () => {
+  return (
+    <View style={styles.container}>
+      <MapView
+        style={styles.map}
+        initialRegion={{
+          latitude: 48.8566,  
+          longitude: 2.3522,  
+          latitudeDelta: 0.0922,  
+          longitudeDelta: 0.0421,
+        }}
+      />
+    </View>
+  );
 };
 
-export default ProfileScreen;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  map: {
+    flex: 1,
+  },
+});
+
+export default App;
