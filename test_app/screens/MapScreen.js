@@ -28,10 +28,6 @@ const App = () => {
       .catch(console.error);
   }, []);
 
-  const handleReportProblem = () => {
-    console.log('Signaler un problème pour:', selectedToilet);
-  };
- 
   return (
     <View style={styles.container}>
       <MapView
@@ -54,14 +50,14 @@ const App = () => {
       </MapView>
  
       {selectedToilet && (
-        <View style={styles.infoBox}>
+        <View style={styles.infoBox} pointerEvents="box-none">
           <TouchableOpacity 
             style={styles.closeX}
             onPress={() => setSelectedToilet(null)}
             hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
           >
             <Text style={styles.closeXText}>✕</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> 
 
           <Text style={styles.title}>{selectedToilet.nom || 'Sanisette'}</Text>
           <Text style={styles.infoText}>Adresse : {selectedToilet.adresse || 'Non disponible'}</Text>
@@ -72,7 +68,6 @@ const App = () => {
  
           <TouchableOpacity
             style={styles.reportButton}
-            onPress={handleReportProblem}
           >
             <Text style={styles.reportButtonText}>⚠️ Signaler un problème</Text>
           </TouchableOpacity>
@@ -105,12 +100,14 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 10,
     right: 15,
-    width: 40,
-    height: 40,
+    width: 50,
+    height: 50,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f0f0f0',
-    borderRadius: 15,
+    borderRadius: 25,
+    zIndex: 1000,
+    elevation: 10,
   },
   closeXText: {
     fontSize: 16,
