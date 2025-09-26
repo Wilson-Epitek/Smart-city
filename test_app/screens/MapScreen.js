@@ -1,12 +1,54 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
+import * as Location from 'expo-location';
  
 const App = () => {
   const [toilets, setToilets] = useState([]);
   const [selectedToilet, setSelectedToilet] = useState(null);
+  const [userLocation, setUserLocation] = useState(null);
+  const [initialRegion, setInitialRegion] = useState({
+    latitude: 48.8566,
+    longitude: 2.3522,
+    latitudeDelta: 0.1,
+    longitudeDelta: 0.1,
+  });
  
   useEffect(() => {
+    const getLocation = async () => {
+      try {
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          Alert.alert(
+            'Permission refusée',
+            'Permission de localisation refusée. La carte se centrera sur Paris.'
+          );
+          return;
+        }
+
+        const location = await Location.getCurrentPositionAsync({
+          accuracy: Location.Accuracy.Balanced,
+        });
+
+        const userCoords = {
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+        };
+
+        setUserLocation(userCoords);
+        
+        setInitialRegion({
+          ...userCoords,
+          latitudeDelta: 0.05,
+          longitudeDelta: 0.05,
+        });
+      } catch (error) {
+        console.error('Erreur lors de la récupération de la localisation:', error);
+        Alert.alert('Erreur', 'Impossible de récupérer votre position.');
+      }
+    };
+
+    getLocation();
     fetch('https://opendata.paris.fr/api/records/1.0/search/?dataset=sanisettesparis&rows=100')
       .then(res => res.json())
       .then(data => {
@@ -32,13 +74,11 @@ const App = () => {
     <View style={styles.container}>
       <MapView
         style={styles.map}
-        initialRegion={{
-          latitude: 48.8566,
-          longitude: 2.3522,
-          latitudeDelta: 0.1,
-          longitudeDelta: 0.1,
-        }}
-
+        initialRegion={initialRegion}
+        showsUserLocation={true}
+        showsMyLocationButton={true}
+        followsUserLocation={false}
+        showsCompass={true}
       >
         {toilets.map(toilet => (
           <Marker
