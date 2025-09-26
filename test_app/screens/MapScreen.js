@@ -29,7 +29,6 @@ const App = () => {
   }, []);
 
   const handleReportProblem = () => {
-    // Fonction pour signaler un problème - à implémenter plus tard
     console.log('Signaler un problème pour:', selectedToilet);
   };
  
@@ -122,7 +121,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 5,
     fontSize: 16,
-    paddingRight: 40, // Pour éviter le chevauchement avec le X
+    paddingRight: 40,
   },
   infoText: {
     marginBottom: 3,
