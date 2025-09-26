@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
   },
   closeReportButton: {
     padding: 15,
-    backgroundColor: '#a4d46c',
+    backgroundColor: '#8B0000',
   },
   closeReportButtonText: {
     textAlign: 'center',

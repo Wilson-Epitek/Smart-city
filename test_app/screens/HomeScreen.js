@@ -35,7 +35,7 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#d6e9d4', // fond vert clair
+    backgroundColor: '#ffe6e6ff',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   button: {
-    backgroundColor: '#a4d46c',
+    backgroundColor: '#8B0000',
     paddingVertical: 15,
     paddingHorizontal: 60,
     borderRadius: 15,

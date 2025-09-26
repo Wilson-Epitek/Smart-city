@@ -14,7 +14,7 @@ function Report() {
   }
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#d6e9d4', padding: 20 }}>
+    <View style={{ flex: 1, backgroundColor: '#f3e4e4ff', padding: 20 }}>
       <View style={styles.container}>
         <Text style={styles.title}>Signaler un problème</Text>
 
@@ -50,8 +50,8 @@ function Report() {
 const styles = StyleSheet.create({
   container: {
     borderWidth: 1,
-    borderColor: '#a4d46c',  
-    backgroundColor: '#d6e9d4', 
+    borderColor: '#8B0000',  
+    backgroundColor: '#ffe6e6ff', 
     padding: 20,
     marginTop: 20,
     borderRadius: 15,
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
     marginBottom: 15,
-    color: '#333',
+    color: '#202020ff',
     textAlign: 'center',
   },
   optionContainer: {
@@ -73,15 +73,15 @@ const styles = StyleSheet.create({
     width: 24,
     borderRadius: 12,
     borderWidth: 2,
-    borderColor: '#a4d46c', 
+    borderColor: '#8B0000', 
     marginRight: 15,
   },
   selectedCircle: {
-    backgroundColor: '#a4d46c',
+    backgroundColor: '#c20707ff',
   },
   optionText: {
     fontSize: 16,
-    color: '#555',
+    color: '#333',
   },
   button: {
     backgroundColor: '#8B0000',
