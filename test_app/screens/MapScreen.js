@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Modal, Alert } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
- 
-const App = () => {
+import Report from '../screens/Report'; 
+
+export default function MapScreen() {
   const [toilets, setToilets] = useState([]);
   const [selectedToilet, setSelectedToilet] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
@@ -13,7 +14,8 @@ const App = () => {
     latitudeDelta: 0.1,
     longitudeDelta: 0.1,
   });
- 
+  const [showReport, setShowReport] = useState(false);
+
   useEffect(() => {
     const getLocation = async () => {
       try {
@@ -49,6 +51,7 @@ const App = () => {
     };
 
     getLocation();
+
     fetch('https://opendata.paris.fr/api/records/1.0/search/?dataset=sanisettesparis&rows=100')
       .then(res => res.json())
       .then(data => {
@@ -88,7 +91,7 @@ const App = () => {
           />
         ))}
       </MapView>
- 
+
       {selectedToilet && (
         <View style={styles.infoBox} pointerEvents="box-none">
           <TouchableOpacity 
@@ -108,15 +111,30 @@ const App = () => {
  
           <TouchableOpacity
             style={styles.reportButton}
+            onPress={() => setShowReport(true)}
           >
             <Text style={styles.reportButtonText}>⚠️ Signaler un problème</Text>
           </TouchableOpacity>
         </View>
       )}
+
+      <Modal
+        visible={showReport}
+        animationType="slide"
+        onRequestClose={() => setShowReport(false)}
+      >
+        <Report />
+        <TouchableOpacity 
+          onPress={() => setShowReport(false)} 
+          style={styles.closeReportButton}
+        >
+          <Text style={styles.closeReportButtonText}>Fermer</Text>
+        </TouchableOpacity>
+      </Modal>
     </View>
   );
-};
- 
+}
+
 const styles = StyleSheet.create({
   container: { flex: 1 },
   map: { flex: 1 },
@@ -178,6 +196,13 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '500',
   },
+  closeReportButton: {
+    padding: 15,
+    backgroundColor: '#a4d46c',
+  },
+  closeReportButtonText: {
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: 'bold',
+  },
 });
- 
-export default App;
